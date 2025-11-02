@@ -1,0 +1,40 @@
+.text-reveal-btn {
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: auto;
+  font-family: "Arial", sans-serif;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 3px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--stroke-color, rgba(100, 100, 100, 0.7));
+}
+
+.text-reveal-btn span {
+  position: relative;
+  display: inline-block;
+}
+
+.text-reveal-btn span::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  color: var(--reveal-color, #37ff8b);
+  -webkit-text-stroke: 1px var(--reveal-color, #37ff8b);
+  border-right: 4px solid var(--reveal-color, #37ff8b);
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.5s ease-in-out;
+  filter: drop-shadow(0 0 23px var(--reveal-color, #37ff8b));
+}
+
+.text-reveal-btn:hover span::before {
+  width: 100%;
+}
