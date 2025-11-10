@@ -10,8 +10,8 @@ function App() {
     <>
       <Navbar />
       <Home />
-      <Contact />
       <FetchApi />
+      <Contact />
     </>
   );
 }
