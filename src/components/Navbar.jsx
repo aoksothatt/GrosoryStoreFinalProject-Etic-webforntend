@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full lg:w-[90%] mx-auto mt-2 lg:mt-5">
+    <nav className="w-full lg:w-[90%] mx-auto mt-2 lg:mt-5 sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-md">
       {/* Desktop Navbar */}
       <div className="hidden lg:flex justify-around h-[7vh] items-center border-b-2 border-gray-200">
         {/* Logo */}
@@ -29,12 +29,27 @@ const Navbar = () => {
         {/* Page Links */}
         <div>
           <ul className="flex gap-6 p-4">
-            <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold">
+            <button
+              onClick={() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }}
+              className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
+            >
               Home
-            </li>
-            <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold">
+            </button>
+            <button
+              onClick={() => {
+                document.getElementById("shop-section")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+              className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
+            >
               Shop
-            </li>
+            </button>
             <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
               About
             </li>
