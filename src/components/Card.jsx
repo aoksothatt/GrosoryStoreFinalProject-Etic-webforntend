@@ -13,7 +13,7 @@ const Card = ({ img, name, price, category }) => {
 
   return (
     <div
-      className="w-[250px] h-[490px] border-1 border-black rounded-lg p-2 flex flex-col items-center gap-2 cursor-pointer transition-all duration-300"
+      className="w-[250px] h-[500px] border-1 border-black rounded-lg p-2 flex flex-col items-center gap-2 cursor-pointer transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{

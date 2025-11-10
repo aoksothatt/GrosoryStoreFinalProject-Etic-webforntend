@@ -8,7 +8,7 @@ const FetchApi = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [itemsToShow, setItemsToShow] = useState(12);
-
+  const [filterType, setFilterType] = useState("all");
   // fetching API
   useEffect(() => {
     const fetchData = async () => {
@@ -50,9 +50,10 @@ const FetchApi = () => {
   }
 
   //filter section
-  const filterType = (category) => {
+  const handleFilter = (category) => {
     // IMPORTANT: Reset itemsToShow BEFORE filtering
     setItemsToShow(12);
+    setFilterType(category); // Update the state!
 
     if (category === "all") {
       setFilteredData(data);
@@ -61,7 +62,6 @@ const FetchApi = () => {
       setFilteredData(result);
     }
   };
-
   // Load more items
   const loadMore = () => {
     setItemsToShow((prev) => prev + 8);
@@ -74,11 +74,18 @@ const FetchApi = () => {
 
   return (
     <>
-      <CategoryCard filterType={filterType} />
+      <CategoryCard filterType={handleFilter} />
+      
+      <div id="shop-section">
+        <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center py-8">
+          {filterType === "all"
+            ? "Our Popular Items"
+            : ` ${
+                filterType.charAt(0).toUpperCase() + filterType.slice(1)
+              } Items`}
+        </h1>
+      </div>
 
-      <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center py-8">
-        Our Popular Items
-      </h1>
       <div className="card flex flex-wrap justify-center mx-auto w-[90%] gap-5 mt-2">
         {filteredData.slice(0, itemsToShow).map((p) => {
           return <Card key={p.id} {...p} />;
