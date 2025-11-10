@@ -4,36 +4,36 @@ import fruitsImg from "../img/4401338.png";
 import meatImg from "../img/5495508.png";
 import milkImg from "../img/5793082.png";
 
-export default function CategoryCard() {
+export default function CategoryCard({ filterType }) {
   const categories = [
     {
-      title: "Vegetable",
+      category: "Vegetable",
       subtitle: "Local market",
-      image: vegetableImg,
+      img: vegetableImg,
       bgColor: "bg-green-100",
     },
     {
-      title: "Snack & Breads",
+      category: "Snack & Bread",
       subtitle: "Local market",
-      image: snackImg,
+      img: snackImg,
       bgColor: "bg-yellow-100",
     },
     {
-      title: "Fruits",
+      category: "Fruit",
       subtitle: "Local market",
-      image: fruitsImg,
+      img: fruitsImg,
       bgColor: "bg-red-100",
     },
     {
-      title: "Meat",
+      category: "Meat",
       subtitle: "Local market",
-      image: meatImg,
+      img: meatImg,
       bgColor: "bg-pink-100",
     },
     {
-      title: "Milk & EnergyDrink",
+      category: "Ingredient",
       subtitle: "Local market",
-      image: milkImg,
+      img: milkImg,
       bgColor: "bg-blue-50",
     },
   ];
@@ -45,16 +45,17 @@ export default function CategoryCard() {
         {categories.map((category, index) => (
           <div
             key={index}
+            onClick={() => filterType(category.category)}
             className={`${category.bgColor} text-left p-4 flex justify-between items-center gap-4 rounded-lg cursor-pointer transition-transform hover:scale-105`}
           >
             <div className="flex-1">
               <h5 className="mb-1 font-bold text-base sm:text-lg md:text-xl">
-                <a
+                <span
                   href="#"
                   className="no-underline text-gray-900 hover:text-gray-700"
                 >
-                  {category.title}
-                </a>
+                  {category.category}
+                </span>
               </h5>
               <small className="text-gray-500 text-sm md:text-base">
                 {category.subtitle}
@@ -62,12 +63,15 @@ export default function CategoryCard() {
             </div>
             <img
               className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
-              src={category.image}
-              alt={category.title}
+              src={category.img}
+              alt={category.category}
             />
           </div>
         ))}
-        <div className="bg-gray-100 rounded-lg cursor-pointer p-6 md:p-8 flex items-center justify-center transition-transform hover:scale-105">
+        <div
+          className="bg-gray-100 rounded-lg cursor-pointer p-6 md:p-8 flex items-center justify-center transition-transform hover:scale-105"
+          onClick={() => filterType("all")}
+        >
           <h6 className="font-semibold text-gray-700 text-lg md:text-xl">
             SEE ALL
           </h6>
@@ -80,16 +84,17 @@ export default function CategoryCard() {
           {categories.map((category, index) => (
             <div
               key={index}
+              onClick={() => filterType(category.category)}
               className={`${category.bgColor} text-left p-3 flex  justify-between items-center gap-2 rounded-lg cursor-pointer w-55 h-35 transition-transform hover:scale-105`}
             >
               <div className="flex-1 min-w-0">
                 <h5 className="mb-1 font-bold text-base leading-tight">
-                  <a
+                  <span
                     href="#"
                     className="no-underline text-gray-900 hover:text-gray-700 text-xl"
                   >
-                    {category.title}
-                  </a>
+                    {category.category}
+                  </span>
                 </h5>
                 <small className="text-gray-500 text-xs">
                   {category.subtitle}
@@ -97,12 +102,15 @@ export default function CategoryCard() {
               </div>
               <img
                 className="w-14 h-14 object-contain flex-shrink-0"
-                src={category.image}
-                alt={category.title}
+                src={category.img}
+                alt={category.category}
               />
             </div>
           ))}
-          <div className="bg-gray-100 rounded-lg cursor-pointer w-55 h-35 flex items-center justify-center transition-transform hover:scale-105">
+          <div
+            className="bg-gray-100 rounded-lg cursor-pointer w-55 h-35 flex items-center justify-center transition-transform hover:scale-105"
+            onClick={() => filterType("all")}
+          >
             <h6 className="font-semibold text-gray-700 text-base">SEE ALL</h6>
           </div>
         </div>

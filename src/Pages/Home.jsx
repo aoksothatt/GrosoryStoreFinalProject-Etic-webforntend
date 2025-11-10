@@ -57,12 +57,12 @@ const Home = () => {
             OUR MAIN CATEGORY
           </h1>
 
-          <div className="mt-1 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-10">
-            {/* CategoryCard component goes here */}
-            <div className="text-gray-500 text-sm">
+          {/* <div className="mt-1 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-10"> */}
+          {/* CategoryCard component goes here */}
+          {/* <div className="text-gray-500 text-sm">
               <CatagoryCard />
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </div>
       </article>
     </>
