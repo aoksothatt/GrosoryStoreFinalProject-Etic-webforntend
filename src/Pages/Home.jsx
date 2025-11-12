@@ -8,7 +8,7 @@ const Home = () => {
         {/* Hero Section - Always side by side, just scales down */}
         <div
           className="flex justify-center items-center gap-4 sm:gap-8 md:gap-16 lg:gap-24 xl:gap-32
-          h-[56vh] sm:h-[60vh] md:h-[55vh] lg:h-[95vh] w-full 
+          h-[56vh] sm:h-[60vh] md:h-[55vh] lg:h-[70vh] w-full 
           bg-gradient-to-b from-blue-300 to-green-300 
           mt-4 rounded-t-2xl sm:rounded-t-3xl lg:rounded-t-4xl 
           px-2 sm:px-4 md:px-8 lg:px-12"
@@ -52,7 +52,7 @@ const Home = () => {
         </div>
 
         {/* Category Section */}
-        <div className="text-center mt-8 sm:mt-12 md:mt-16 lg:mt-24 xl:mt-32">
+        <div className="text-center mt-8 sm:mt-12 md:mt-16 lg:mt-24 xl:mt-20">
           <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             OUR MAIN CATEGORY
           </h1>

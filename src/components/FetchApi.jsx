@@ -75,7 +75,7 @@ const FetchApi = () => {
   return (
     <>
       <CategoryCard filterType={handleFilter} />
-      
+
       <div id="shop-section">
         <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center py-8">
           {filterType === "all"
@@ -88,7 +88,16 @@ const FetchApi = () => {
 
       <div className="card flex flex-wrap justify-center mx-auto w-[90%] gap-5 mt-2">
         {filteredData.slice(0, itemsToShow).map((p) => {
-          return <Card key={p.id} {...p} />;
+          return (
+            <Card
+              key={p.id}
+              id={p.id}
+              img={p.img}
+              name={p.name}
+              price={p.price}
+              category={p.category}
+            />
+          );
         })}
       </div>
       {/* Show More Button */}

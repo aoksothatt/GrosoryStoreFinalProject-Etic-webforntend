@@ -2,19 +2,30 @@ import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import "./app.css";
 import Contact from "./Pages/Contact";
-import Card from "./components/Card";
 import FetchApi from "./components/FetchApi";
-
-
-
+import { FavoritesProvider } from "./components/FavoritesContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Favorites from "./components/Favorites";
 function App() {
   return (
-    <>
-      <Navbar />
-      <Home />
-      <FetchApi />
-      <Contact/>
-    </>
+    <FavoritesProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+                <FetchApi />
+                <Contact />
+              </>
+            }
+          />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </Router>
+    </FavoritesProvider>
   );
 }
 

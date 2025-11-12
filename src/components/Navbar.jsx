@@ -4,12 +4,60 @@ import { Search } from "lucide-react";
 import { TiShoppingCart } from "react-icons/ti";
 import { Menu, X } from "lucide-react";
 import TextRevealButton from "../Animation/TextRevealButton";
-
+import { FaHeart } from "react-icons/fa6";
+import { useFavorites } from "./FavoritesContext";
+import { useNavigate, useLocation } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { favorites } = useFavorites(); // Get favorites from context
+  const navigate = useNavigate(); // For navigation
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const goToFavorites = () => {
+    navigate("/favorites"); // Navigate to favorites page
+  };
+
+  const goToHome = () => {
+    navigate("/"); // Add this function
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top when navigating
+  };
+
+  const goToShop = () => {
+    if (location.pathname !== "/") {
+      // If not on home page, navigate first
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("shop-section")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 100);
+    } else {
+      // If already on home page, just scroll
+      document.getElementById("shop-section")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const goToContact = () => {
+    if (location.pathname !== "/") {
+      // If not on home page, navigate first
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("contect-section")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 100);
+    } else {
+      // If already on home page, just scroll
+      document.getElementById("contect-section")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -17,7 +65,7 @@ const Navbar = () => {
       {/* Desktop Navbar */}
       <div className="hidden lg:flex justify-around h-[7vh] items-center border-b-2 border-gray-200">
         {/* Logo */}
-        <div>
+        <div onClick={goToHome}>
           <h1 className="text-2xl font-bold flex items-center gap-2 p-4">
             <span className="text-5xl">
               <FcShop className="cursor-pointer" />
@@ -30,22 +78,13 @@ const Navbar = () => {
         <div>
           <ul className="flex gap-6 p-4">
             <button
-              onClick={() => {
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
+              onClick={goToHome}
               className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
             >
               Home
             </button>
             <button
-              onClick={() => {
-                document.getElementById("shop-section")?.scrollIntoView({
-                  behavior: "smooth",
-                });
-              }}
+              onClick={goToShop}
               className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
             >
               Shop
@@ -53,9 +92,12 @@ const Navbar = () => {
             <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
               About
             </li>
-            <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
+            <button
+              onClick={goToContact}
+              className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold"
+            >
               Contact
-            </li>
+            </button>
           </ul>
         </div>
 
@@ -74,7 +116,19 @@ const Navbar = () => {
         </div>
 
         {/* Login */}
+
         <div className="flex gap-8 text-xl items-center">
+          <div
+            onClick={goToFavorites}
+            className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative"
+          >
+            <FaHeart />
+            {favorites.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                {favorites.length}
+              </span>
+            )}
+          </div>
           <div className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white">
             <TiShoppingCart />
           </div>
@@ -143,6 +197,17 @@ const Navbar = () => {
               </li>
               <li className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
                 Contact
+              </li>
+              <li
+                onClick={goToFavorites}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg flex justify-between items-center"
+              >
+                Favorites
+                {favorites.length > 0 && (
+                  <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                    {favorites.length}
+                  </span>
+                )}
               </li>
             </ul>
 
