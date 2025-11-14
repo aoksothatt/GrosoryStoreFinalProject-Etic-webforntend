@@ -7,16 +7,18 @@ import TextRevealButton from "../Animation/TextRevealButton";
 import { FaHeart } from "react-icons/fa6";
 import { useFavorites } from "./FavoritesContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import Login from "./Login";
+import SignUp from "./SignUp";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { favorites } = useFavorites(); // Get favorites from context
   const navigate = useNavigate(); // For navigation
   const location = useLocation();
+  const [authModal, setAuthModal] = useState(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const goToFavorites = () => {
     navigate("/favorites"); // Navigate to favorites page
   };
@@ -132,9 +134,26 @@ const Navbar = () => {
           <div className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white">
             <TiShoppingCart />
           </div>
-          <button className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold">
+          <button
+            onClick={() => setAuthModal("login")}
+            className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold cursor-pointer"
+          >
             SignIn
           </button>
+          {/* Render modals based on authModal state */}
+          {authModal === "login" && (
+            <Login
+              onClose={() => setAuthModal(null)}
+              onSwitchToSignup={() => setAuthModal("signup")}
+            />
+          )}
+
+          {authModal === "signup" && (
+            <SignUp
+              onClose={() => setAuthModal(null)}
+              onSwitchToLogin={() => setAuthModal("login")}
+            />
+          )}
         </div>
       </div>
 
@@ -198,6 +217,7 @@ const Navbar = () => {
               <li className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
                 Contact
               </li>
+
               <li
                 onClick={goToFavorites}
                 className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg flex justify-between items-center"

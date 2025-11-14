@@ -6,6 +6,7 @@ import FetchApi from "./components/FetchApi";
 import { FavoritesProvider } from "./components/FavoritesContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Favorites from "./components/Favorites";
+import Login from "./components/Login";
 function App() {
   return (
     <FavoritesProvider>
