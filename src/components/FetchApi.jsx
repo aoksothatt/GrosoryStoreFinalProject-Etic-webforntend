@@ -7,7 +7,7 @@ const FetchApi = () => {
   const [filteredData, setFilteredData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [itemsToShow, setItemsToShow] = useState(12);
+  const [itemsToShow, setItemsToShow] = useState(10);
   const [filterType, setFilterType] = useState("all");
   // fetching API
   useEffect(() => {
@@ -35,7 +35,7 @@ const FetchApi = () => {
   // put loading
   if (loading) {
     return (
-      <div className="card">
+      <div className="card text-center text-4xl p-10">
         <p>Loading...</p>
       </div>
     );
@@ -43,7 +43,7 @@ const FetchApi = () => {
 
   if (error) {
     return (
-      <div className="card">
+      <div className="card text-center text-4xl p-10">
         <p>Error: {error}</p>
       </div>
     );
@@ -52,7 +52,7 @@ const FetchApi = () => {
   //filter section
   const handleFilter = (category) => {
     // IMPORTANT: Reset itemsToShow BEFORE filtering
-    setItemsToShow(12);
+    setItemsToShow(10);
     setFilterType(category); // Update the state!
 
     if (category === "all") {
@@ -64,7 +64,7 @@ const FetchApi = () => {
   };
   // Load more items
   const loadMore = () => {
-    setItemsToShow((prev) => prev + 8);
+    setItemsToShow((prev) => prev + 10);
   };
 
   // Check if there are more items to show
@@ -79,7 +79,7 @@ const FetchApi = () => {
       <div id="shop-section">
         <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center py-8">
           {filterType === "all"
-            ? "Our Popular Items"
+            ? "All The Products"
             : ` ${
                 filterType.charAt(0).toUpperCase() + filterType.slice(1)
               } Items`}
@@ -100,8 +100,8 @@ const FetchApi = () => {
           );
         })}
       </div>
-      {/* Show More Button */}
 
+      {/* Show More Button */}
       {hasMoreItems() && (
         <div className="flex justify-center mt-8 mb-8">
           <button

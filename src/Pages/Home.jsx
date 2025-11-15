@@ -1,6 +1,5 @@
 import React from "react";
 import Myheropic from "../img/8324749.png";
-import CatagoryCard from "../components/CatagoryCard";
 const Home = () => {
   return (
     <>
@@ -50,19 +49,11 @@ const Home = () => {
             />
           </div>
         </div>
-
         {/* Category Section */}
         <div className="text-center mt-8 sm:mt-12 md:mt-16 lg:mt-24 xl:mt-20">
           <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             OUR MAIN CATEGORY
           </h1>
-
-          {/* <div className="mt-1 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-10"> */}
-          {/* CategoryCard component goes here */}
-          {/* <div className="text-gray-500 text-sm">
-              <CatagoryCard />
-            </div> */}
-          {/* </div> */}
         </div>
       </article>
     </>

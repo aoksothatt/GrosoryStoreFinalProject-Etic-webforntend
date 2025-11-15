@@ -1,8 +1,8 @@
 import vegetableImg from "../img/3330190.png";
 import snackImg from "../img/3346287.png";
-import  mlik from "../img/4401338.png";
+import mlik from "../img/4401338.png";
 import meatImg from "../img/5495508.png";
-import  fruitsImg from "../img/5793082.png";
+import fruitsImg from "../img/5793082.png";
 
 export default function CategoryCard({ filterType }) {
   const categories = [
@@ -29,6 +29,12 @@ export default function CategoryCard({ filterType }) {
       subtitle: "Local market",
       img: meatImg,
       bgColor: "bg-pink-100",
+    },
+    {
+      category: "Drink",
+      subtitle: "Local market",
+      img: mlik,
+      bgColor: "bg-blue-50",
     },
     {
       category: "Ingredient",

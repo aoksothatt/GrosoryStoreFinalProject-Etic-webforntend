@@ -3,54 +3,60 @@ import { useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useFavorites } from "./FavoritesContext";
+import { useCart } from "./CartContext";
+import toast from "react-hot-toast";
 
 const Card = ({ img, name, price, category, id }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [isHovered, setIsHovered] = useState(false);
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(500); // State for quantity (weight in grams)
 
   const handleToggleFavorite = () => {
+    const isFav = isFavorite(id);
     toggleFavorite({ id, img, name, price, category }); // Pass the entire item
+    if (isFav) {
+      toast.error(`${name} removed from favorites`, {
+        icon: "💔",
+      });
+    } else {
+      toast.success(`${name} added to favorites!`, {
+        icon: "❤️",
+      });
+    }
+  };
+
+  // add to card hadeler
+  const handleAddToCart = () => {
+    const product = {
+      id,
+      img,
+      name,
+      price,
+      category,
+      quantity: 1,
+      weight: quantity, // Store the selected weight
+    };
+    addToCart(product);
+    // Show success message
+    toast.success(`${name} (${quantity}g) added to cart!`, {
+      icon: "🛒",
+    });
+  };
+
+  // Handle quantity increase
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 100); // Increase by 100g
+  };
+  // Handle quantity decrease
+  const decreaseQuantity = () => {
+    if (quantity > 100) {
+      // Minimum 100g
+      setQuantity((prev) => prev - 100); // Decrease by 100g
+    }
   };
 
   return (
-    // <div
-    //   className="w-[250px] h-[500px] border-1 border-black rounded-lg p-2 flex flex-col items-center gap-2 cursor-pointer transition-all duration-300"
-    //   onMouseEnter={() => setIsHovered(true)}
-    //   onMouseLeave={() => setIsHovered(false)}
-    //   style={{
-    //     boxShadow: isHovered
-    //       ? "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-    //       : "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-    //     transform: isHovered ? "translateY(-5px)" : "translateY(0)",
-    //   }}
-    // >
-    //   <div className="relative w-full ">
-    //     <img className=" w-full h-[200px]" src={img} alt={name} />
-    //     {isFavorite ? (
-    //       <IoMdHeart
-    //         className="absolute text-3xl top-1 right-2 text-red-500 cursor-pointer"
-    //         onClick={toggleFavorite}
-    //       />
-    //     ) : (
-    //       <IoIosHeartEmpty
-    //         className="absolute text-3xl top-1 right-2 text-black cursor-pointer"
-    //         onClick={toggleFavorite}
-    //       />
-    //     )}
-    //   </div>
-    //   <h4 className="font-bold text-[25px]">{name}</h4>
-    //   <p className="text-gray-400">500g</p>
-    //   <p className="text-gray-400">{category}</p>
-    //   <h3 className="text-[45px]">
-    //     {price}.<sup>99$</sup>
-    //   </h3>
-    //   <button className="bg-green-700 border-0 rounded-lg py-3 w-[125px] text-white font-bold hover:bg-green-500 ">
-    //     Order Now
-    //   </button>
-    // </div>
-
-    //new card design
-
     <div
       className="w-80 bg-white shadow-xl rounded-xl transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
@@ -95,8 +101,13 @@ const Card = ({ img, name, price, category, id }) => {
         </p>
         <h1 className="text-gray-800 text-center mt-1">{name}</h1>
         <p className="text-center text-gray-800 mt-1">{price}$</p>
+
+        {/* Quantity Selector */}
         <div className="inline-flex items-center mt-2">
-          <button className="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+          <button
+            onClick={decreaseQuantity}
+            className="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-4"
@@ -113,9 +124,12 @@ const Card = ({ img, name, price, category, id }) => {
             </svg>
           </button>
           <div className="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none">
-            500g
+            {quantity}g
           </div>
-          <button class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+          <button
+            onClick={increaseQuantity}
+            class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-4"
@@ -132,8 +146,11 @@ const Card = ({ img, name, price, category, id }) => {
             </svg>
           </button>
         </div>
-
-        <button className="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-green-700 disabled:opacity-50 mt-4 w-full flex items-center justify-center">
+        {/* Add to Cart Button */}
+        <button
+          onClick={handleAddToCart}
+          className="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-green-700 disabled:opacity-50 mt-4 w-full flex items-center justify-center"
+        >
           Add to order
           <svg
             xmlns="http://www.w3.org/2000/svg"
