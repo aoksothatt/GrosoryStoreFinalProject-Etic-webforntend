@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import CategoryCard from "./CatagoryCard";
 
-const FetchApi = () => {
+const FetchApi = ({ searchTerm }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [itemsToShow, setItemsToShow] = useState(10);
   const [filterType, setFilterType] = useState("all");
+
   // fetching API
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +19,7 @@ const FetchApi = () => {
         );
         if (!response.ok) throw new Error("Failed to fetch");
         const result = await response.json();
+
         //random the data
         const shuffled = result.sort(() => Math.random() - 0.5);
         setData(shuffled);
@@ -31,6 +33,30 @@ const FetchApi = () => {
 
     fetchData();
   }, []);
+
+  // ADD THIS NEW useEffect for search functionality
+  useEffect(() => {
+    if (!data.length) return; // Wait until data is loaded
+
+    let result = data;
+
+    // First apply category filter
+    if (filterType !== "all") {
+      result = result.filter((item) => item.category === filterType);
+    }
+
+    // Then apply search filter
+    if (searchTerm && searchTerm.trim() !== "") {
+      result = result.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredData(result);
+    setItemsToShow(10); // Reset items to show when search/filter changes
+  }, [searchTerm, filterType, data]); // Run when searchTerm, filterType, or data changes
 
   // put loading
   if (loading) {
@@ -54,13 +80,6 @@ const FetchApi = () => {
     // IMPORTANT: Reset itemsToShow BEFORE filtering
     setItemsToShow(10);
     setFilterType(category); // Update the state!
-
-    if (category === "all") {
-      setFilteredData(data);
-    } else {
-      const result = data.filter((item) => item.category === category);
-      setFilteredData(result);
-    }
   };
   // Load more items
   const loadMore = () => {
@@ -84,21 +103,37 @@ const FetchApi = () => {
                 filterType.charAt(0).toUpperCase() + filterType.slice(1)
               } Items`}
         </h1>
+
+        {/* ADD THIS: Show search results count */}
+        {searchTerm && (
+          <p className="text-center text-gray-600 mb-4">
+            Found {filteredData?.length || 0} results for "{searchTerm}"
+          </p>
+        )}
       </div>
 
       <div className="card flex flex-wrap justify-center mx-auto w-[90%] gap-5 mt-2">
-        {filteredData.slice(0, itemsToShow).map((p) => {
-          return (
-            <Card
-              key={p.id}
-              id={p.id}
-              img={p.img}
-              name={p.name}
-              price={p.price}
-              category={p.category}
-            />
-          );
-        })}
+        {filteredData && filteredData.length > 0 ? (
+          filteredData.slice(0, itemsToShow).map((p) => {
+            return (
+              <Card
+                key={p.id}
+                id={p.id}
+                img={p.img}
+                name={p.name}
+                price={p.price}
+                category={p.category}
+              />
+            );
+          })
+        ) : (
+          // ADD THIS: Show message when no results found
+          <div className="text-center w-full py-10">
+            <p className="text-2xl text-gray-500">
+              No products found {searchTerm && `for "${searchTerm}"`}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Show More Button */}

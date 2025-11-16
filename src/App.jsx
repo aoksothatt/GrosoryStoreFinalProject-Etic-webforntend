@@ -9,7 +9,9 @@ import Favorites from "./components/Favorites";
 import { CartProvider } from "./components/CartContext";
 import { Toaster } from "react-hot-toast";
 import Cart from "./Pages/CardPage";
+import React, { useState } from "react";
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <FavoritesProvider>
       <CartProvider>
@@ -46,14 +48,14 @@ function App() {
               },
             }}
           />
-          <Navbar />
+          <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Routes>
             <Route
               path="/"
               element={
                 <>
                   <Home />
-                  <FetchApi />
+                  <FetchApi searchTerm={searchTerm} />
                   <Contact />
                 </>
               }
