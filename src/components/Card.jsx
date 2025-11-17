@@ -10,7 +10,7 @@ const Card = ({ img, name, price, category, id }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(500); // State for quantity (weight in grams)
+  const [quantity, setQuantity] = useState(100); // State for quantity (weight in grams)
 
   const handleToggleFavorite = () => {
     const isFav = isFavorite(id);
@@ -34,8 +34,8 @@ const Card = ({ img, name, price, category, id }) => {
       name,
       price,
       category,
-      quantity: 1,
-      weight: quantity, // Store the selected weight
+      quantity: quantity,
+      weight: quantity,
     };
     addToCart(product);
     // Show success message

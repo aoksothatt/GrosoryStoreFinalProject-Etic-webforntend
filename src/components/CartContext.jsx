@@ -12,15 +12,15 @@ export const CartProvider = ({ children }) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
 
       if (existingItem) {
-        // If exists, increase quantity
+        // If exists, ADD the new quantity to existing quantity (in grams)
         return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + product.quantity }
             : item
         );
       } else {
-        // If new product, add with quantity 1
-        return [...prevItems, { ...product, quantity: 1 }];
+        // If new product, add it with the quantity from product
+        return [...prevItems, product];
       }
     });
   };
@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
   // Update quantity
   const updateQuantity = (productId, quantity) => {
-    if (quantity <= 0) {
+    if (quantity <= 100) {
       removeFromCart(productId);
       return;
     }
@@ -53,13 +53,13 @@ export const CartProvider = ({ children }) => {
 
   // Get total items count
   const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return cartItems.length;
   };
 
   // Get total price
   const getTotalPrice = () => {
     return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
+      (total, item) => total + (item.price * item.quantity) / 100,
       0
     );
   };

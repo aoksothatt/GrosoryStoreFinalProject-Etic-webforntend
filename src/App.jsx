@@ -27,6 +27,7 @@ function App() {
                 fontSize: "14px",
                 borderRadius: "8px",
                 padding: "12px 20px",
+                marginTop: "35px",
               },
               success: {
                 duration: 3000,
