@@ -96,6 +96,7 @@ const Cart = () => {
               </div>
 
               {/* Remove Button */}
+
               <button
                 onClick={() => removeFromCart(item.id)}
                 className="text-red-500 hover:text-red-700"

@@ -11,7 +11,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import { useCart } from "./CartContext";
 
-const Navbar = () => {
+const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { favorites } = useFavorites(); // Get favorites from context
   const navigate = useNavigate(); // For navigation
@@ -125,7 +125,6 @@ const Navbar = () => {
             </button>
           </ul>
         </div>
-
         {/* Search */}
         <div className="flex items-center justify-center p-4">
           <div className="w-[300px]">
@@ -134,6 +133,8 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-10 py-2 text-sm rounded-full border-2 border-gray-100 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 shadow-lg hover:bg-gray-200"
               />
             </div>
@@ -233,13 +234,15 @@ const Navbar = () => {
             isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
           } overflow-hidden transition-all duration-300 ease-in-out bg-white border-b-2 border-gray-200`}
         >
+          {/* Search Bar */}
           <div className="px-4 py-4 space-y-4">
-            {/* Search Bar */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 text-sm rounded-full border-2 border-gray-200 focus:border-green-500 focus:outline-none"
               />
             </div>
