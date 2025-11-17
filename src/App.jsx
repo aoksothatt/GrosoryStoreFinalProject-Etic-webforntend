@@ -9,6 +9,7 @@ import Favorites from "./components/Favorites";
 import { CartProvider } from "./components/CartContext";
 import { Toaster } from "react-hot-toast";
 import Cart from "./Pages/CardPage";
+import About from "./Pages/About";
 function App() {
   return (
     <FavoritesProvider>
@@ -53,7 +54,8 @@ function App() {
               element={
                 <>
                   <Home />
-                  <FetchApi />
+                  <FetchApi/>
+                  <About/>
                   <Contact />
                 </>
               }

@@ -49,19 +49,37 @@ const Navbar = () => {
       });
     }
   };
+     //go to about
+      const goToAbout = () => {
+    if (location.pathname !== "/") {
+      // If not on home page, navigate first
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("about-section")?.scrollIntoView({
+          behavior: "smooth",
+        });
+      }, 100);
+    } else {
+      // If already on home page, just scroll
+      document.getElementById("about-section")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
 
   const goToContact = () => {
     if (location.pathname !== "/") {
       // If not on home page, navigate first
       navigate("/");
       setTimeout(() => {
-        document.getElementById("contect-section")?.scrollIntoView({
+        document.getElementById("contact-section")?.scrollIntoView({
           behavior: "smooth",
         });
       }, 100);
     } else {
       // If already on home page, just scroll
-      document.getElementById("contect-section")?.scrollIntoView({
+      document.getElementById("contact-section")?.scrollIntoView({
         behavior: "smooth",
       });
     }
@@ -96,7 +114,7 @@ const Navbar = () => {
             >
               Shop
             </button>
-            <li className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
+            <li onClick={goToAbout} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
               About
             </li>
             <button

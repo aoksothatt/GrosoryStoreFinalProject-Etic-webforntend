@@ -2,101 +2,120 @@ import React from "react";
 import { FcShop } from "react-icons/fc";
 import { FaFacebook, FaInstagram, FaTwitter, FaTelegram } from "react-icons/fa";
 
-import TextRevealButton from "../Animation/TextRevealButton";
-export const Contact = () => {
+const Contact = () => {
   return (
     <div
-      className="w-full sm:w-[95%] lg:w-[90%] mx-auto px-4 sm:px-0"
-      id="contect-section"
+      className="w-full max-w-[1200px] mx-auto px-4"
+      id="contact-section"
     >
-      <div
-        className="h-[56vh] sm:h-[60vh] md:h-[55vh] lg:h-[30vh] w-full 
+      {/* ===== TOP CONTACT BOX ===== */}
+      <div className="
+        w-full 
         bg-gradient-to-r from-blue-300 to-green-300 
-        mt-4 rounded-2xl flex flex-col items-center pt-5"
-      >
-        <h4 className="font-black bg-gradient-to-r from-yellow-800 to-black bg-clip-text text-transparent mb-4">
+        mt-6 rounded-2xl 
+        flex flex-col items-center text-center 
+        py-10
+      ">
+        <h4 className="font-black bg-gradient-to-r from-yellow-800 to-black bg-clip-text text-transparent text-3xl sm:text-4xl mb-4">
           CONTACT US
         </h4>
 
-        <p
-          className="text-emerald-700 font-bold w-[70%] text-center mb-6"
-          style={{ fontSize: "24px" }}
-        >
-          Contact us to easily order any food or juice and get some special
-          promotions. We’ll get back to you quickly.
+        <p className="text-emerald-700 font-bold text-base sm:text-lg md:text-xl max-w-[700px] mb-6">
+          Contact us to easily order any food or juice and get some special promotions.
+          We’ll get back to you quickly.
         </p>
 
-        {/* Input + Subscribe Button */}
-        <div className="flex w-[400px]">
-          <input
-            type="email"
-            placeholder="Freshfood3455@gmail.com"
-            className="placeholder-gray-300 flex-1 h-[50px]  px-4 rounded-l-lg bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
-          <button className="bg-gradient-to-r from-green-600 to-blue-400 bg-green-500 bg-linear-to-r hover:from-red-700 to-green-400 text-black font-bold px-6 rounded-r-lg ">
-            Subscribe
-          </button>
-        </div>
+        {/* Email Input + Subscribe Btn */}
+       <div className="w-full flex flex-col sm:flex-row items-center sm:items-stretch gap-3 sm:gap-0 max-w-[500px]">
+  <input
+    type="email"
+    placeholder="Freshfood3455@gmail.com"
+    className="
+      w-full 
+      placeholder-gray-400 
+      h-[48px] px-4 
+      rounded-lg sm:rounded-l-lg sm:rounded-r-none
+      bg-white border border-gray-300
+      focus:outline-none focus:ring-2 focus:ring-green-500
+    "
+  />
+
+  <button
+    className="
+      w-full sm:w-auto 
+      h-[48px]
+      bg-gradient-to-r from-green-600 to-blue-400
+      text-white font-semibold px-6 
+      rounded-lg sm:rounded-r-lg sm:rounded-l-none
+      hover:opacity-90
+    "
+  >
+    Subscribe
+  </button>
+</div>
+
       </div>
-      <div className=" flex gap-3 w-full h-[30vh] md:mt-20 ">
-        <h1 className="text-2xl font-bold  items-center gap-2 p-4">
-          <span className="text-4xl flex">
-            <FcShop className="cursor-pointer" />
-            <h5
-              className="bg-gradient-to-r from-green-600 to-blue-400 bg-clip-text text-transparent font-extralight pt-3 "
-              style={{ fontSize: "20px" }}
-            >
+
+      {/* ===== BOTTOM FOOTER SECTION ===== */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
+        
+        {/* Logo + Socials */}
+        <div>
+          <div className="flex items-center gap-2">
+            <FcShop className="text-4xl" />
+            <h5 className="bg-gradient-to-r from-green-600 to-blue-400 bg-clip-text text-transparent font-bold text-xl">
               KHMER FRESH
             </h5>
-          </span>
+          </div>
 
-          <div className="flex gap-4 items-center mt-10">
-            <a href="https://www.facebook.com/" target="-black">
-              <FaFacebook className="text-blue-600 cursor-pointer text-[20px]" />
+          {/* Social icons */}
+          <div className="flex gap-4 items-center mt-6">
+            <a href="https://www.facebook.com/" target="_blank">
+              <FaFacebook className="text-blue-600 text-[22px]" />
             </a>
-            <a href="https://www.instagram.com/" target="-black">
-              <FaInstagram className="bg-linear-to-b from-pink-500 to-orange-400 text-amber-50 rounded-[3px] cursor-pointer text-[20px]" />
+            <a href="https://www.instagram.com/" target="_blank">
+              <FaInstagram className="text-pink-500 text-[22px]" />
             </a>
-            <a href="https://x.com/" target="-black">
-              <FaTwitter className="text-blue-400 cursor-pointer text-[20px]" />
+            <a href="https://x.com/" target="_blank">
+              <FaTwitter className="text-blue-400 text-[22px]" />
             </a>
-            <a href="https://desktop.telegram.org/9o" target="-black">
-              <FaTelegram className="text-cyan-500 cursor-pointer text-[20px]" />
+            <a href="https://telegram.org/" target="_blank">
+              <FaTelegram className="text-cyan-500 text-[22px]" />
             </a>
           </div>
-        </h1>
+        </div>
 
-        <div className=" ml-40 mt-5.5 ">
-          <h3 className="font-bold" style={{ fontSize: "20px" }}>
-            Our services
-          </h3>
-          <ul className="mt-4" style={{ fontSize: "13px" }}>
-            <li>Pricing</li>
-            <li className="pt-1">Tracking</li>
-            <li className="pt-1">Report a Bug</li>
-            <li className="pt-1">Terms of service</li>
+        {/* Services */}
+        <div>
+          <h3 className="font-bold text-lg">Our Services</h3>
+          <ul className="mt-3 text-sm text-gray-700">
+            <li className="pt-2">Pricing</li>
+            <li className="pt-2">Tracking</li>
+            <li className="pt-2">Report a Bug</li>
+            <li className="pt-2">Terms of Service</li>
           </ul>
         </div>
-        <div className=" ml-50 mt-5.5 ">
-          <h3 className="font-bold" style={{ fontSize: "20px" }}>
-            Our Company
-          </h3>
-          <ul className="mt-4" style={{ fontSize: "13px" }}>
-            <li className="pt-1">Reporting</li>
-            <li className="pt-1">Get in Touch</li>
-            <li className="pt-1">Management</li>
+
+        {/* Company */}
+        <div>
+          <h3 className="font-bold text-lg">Our Company</h3>
+          <ul className="mt-3 text-sm text-gray-700">
+            <li className="pt-2">Reporting</li>
+            <li className="pt-2">Get in Touch</li>
+            <li className="pt-2">Management</li>
           </ul>
         </div>
-        <div className=" ml-50 mt-5.5 ">
-          <h3 className="font-bold" style={{ fontSize: "20px" }}>
-            Address
-          </h3>
-          <ul className="mt-4" style={{ fontSize: "13px" }}>
-            <li className="pt-1">371 Steung mean chey</li>
-            <li className="pt-1">897-234-3445</li>
-            <li className="pt-1">Freshfood3455@gmail.com</li>
+
+        {/* Address */}
+        <div>
+          <h3 className="font-bold text-lg">Address</h3>
+          <ul className="mt-3 text-sm text-gray-700">
+            <li className="pt-2">371 Steung Mean Chey</li>
+            <li className="pt-2">897-234-3445</li>
+            <li className="pt-2">Freshfood3455@gmail.com</li>
           </ul>
         </div>
+
       </div>
     </div>
   );
