@@ -9,11 +9,9 @@ import Favorites from "./components/Favorites";
 import { CartProvider } from "./components/CartContext";
 import { Toaster } from "react-hot-toast";
 import Cart from "./Pages/CardPage";
-<<<<<<< HEAD
 import About from "./Pages/About";
-=======
 import React, { useState } from "react";
->>>>>>> ba5c03560e2c7dc7bc9b7e06e62cd38e34946ee1
+
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   return (
@@ -31,6 +29,7 @@ function App() {
                 fontSize: "14px",
                 borderRadius: "8px",
                 padding: "12px 20px",
+                marginTop: "35px",
               },
               success: {
                 duration: 3000,
@@ -59,12 +58,8 @@ function App() {
               element={
                 <>
                   <Home />
-<<<<<<< HEAD
-                  <FetchApi/>
-                  <About/>
-=======
                   <FetchApi searchTerm={searchTerm} />
->>>>>>> ba5c03560e2c7dc7bc9b7e06e62cd38e34946ee1
+                  <About />
                   <Contact />
                 </>
               }
