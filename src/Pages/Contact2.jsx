@@ -17,7 +17,7 @@ const Contact2 = () => {
         {/* Name */}
         <label>Name</label>
         <input
-          className="border border-gray-400 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
+          className="focus:ring-2 focus:ring-blue-500 outline-none border-2  border-gray-200 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
           type="text"
           placeholder="Your Name"
         />
@@ -25,7 +25,7 @@ const Contact2 = () => {
         {/* Email */}
         <label>Email</label>
         <input
-          className="border border-gray-400 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
+          className="border-2 focus:ring-2 focus:ring-blue-500 outline-none border-gray-200 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
           type="text"
           placeholder="Your Email"
         />
@@ -33,7 +33,7 @@ const Contact2 = () => {
         {/* Subject */}
         <label>Subject</label>
         <input
-          className="border border-gray-400 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
+          className="border-2 focus:ring-2 focus:ring-blue-500 outline-none border-gray-200 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
           type="text"
           placeholder="Subject"
         />
@@ -41,7 +41,7 @@ const Contact2 = () => {
         {/* Message */}
         <label>Message</label>
         <textarea
-          className="border border-gray-400 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
+          className="border-2 focus:ring-2 focus:ring-blue-500 outline-none border-gray-200 p-2.5 rounded-2xl w-full mb-2 placeholder:text-gray-400"
           rows="4"
           placeholder="Your message"
         ></textarea>
