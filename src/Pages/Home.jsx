@@ -1,60 +1,79 @@
 import React from "react";
 import Myheropic from "../img/8324749.png";
+
 const Home = () => {
   return (
     <>
-      <article className="w-full sm:w-[95%] lg:w-[90%] mx-auto px-4 sm:px-0">
-        {/* Hero Section - Always side by side, just scales down */}
-        <div
-          className="flex justify-center items-center gap-4 sm:gap-8 md:gap-16 lg:gap-24 xl:gap-32
-          h-[56vh] sm:h-[60vh] md:h-[55vh] lg:h-[78vh] w-full 
-          bg-gradient-to-b from-blue-300 to-green-300 
-          mt-4 rounded-t-2xl sm:rounded-t-3xl lg:rounded-t-4xl 
-          px-2 sm:px-4 md:px-8 lg:px-12"
-        >
-          {/* Text Content - Always on left */}
-          <div className="flex flex-col gap-3 sm:gap-5 md:gap-7 lg:gap-6 flex-1">
-            <h6 className="text-xs sm:text-sm md:text-base lg:text-lg font-medium">
+      <article className="w-full max-w-[1400px] mx-auto px-4">
+
+        {/* HERO SECTION */}
+        <div className="
+          flex flex-col md:flex-row justify-center items-center 
+          gap-8 md:gap-16 lg:gap-24 
+          bg-linear-to-b from-blue-300 to-green-300
+          h-auto py-10 md:py-16 lg:py-20
+          mt-4 rounded-t-3xl px-4
+        ">
+          
+          {/* LEFT TEXT SECTION */}
+          <div className="flex flex-col gap-4 flex-1 text-center md:text-left">
+            
+            <h6 className="text-sm md:text-base lg:text-lg font-medium text-gray-700 md:pb-10">
               Fresh & Authentic
             </h6>
 
-            <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight">
-              DELICIOUS FOOD TO <br /> CURB YOUR HUNGRY
+            <h1 className="
+              text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 
+              font-extrabold leading-tight
+            ">
+              DELICIOUS FOOD TO <br className="hidden md:block" />
+              CURB YOUR HUNGRY
             </h1>
 
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
-              Our organic whole milk comes from pasture-raised cows,{" "}
-              <br className="hidden md:block" />
-              free from synthetic hormones and antibiotics, delivering a rich
-              and creamy taste.
+            <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
+              Our organic whole milk comes from pasture-raised cows,
+              free from artificial hormones and antibiotics,
+              ensuring a rich and creamy taste in every sip.
             </p>
 
-            <button
-              className="w-28 sm:w-36 md:w-44 lg:w-52 h-10 sm:h-11 md:h-12 lg:h-14
-              bg-gradient-to-r from-blue-500 to-green-500 
-              text-white text-xs sm:text-sm md:text-base font-semibold
-              rounded-full transition-all cursor-pointer 
-              hover:shadow-lg hover:scale-105"
-            >
-              Order Now
-            </button>
+            <div className="flex md:block justify-center">
+              <button
+                className="
+                w-32 md:w-44 h-11 md:h-12
+                bg-gradient-to-r from-blue-500 to-green-500 
+                text-white text-sm md:text-base font-semibold
+                rounded-full transition-all cursor-pointer 
+                hover:shadow-lg hover:scale-105 md:mt-30
+                "
+              >
+                Order Now
+              </button>
+            </div>
+
           </div>
 
-          {/* Hero Image - Always on right */}
-          <div className="flex-1 flex items-center justify-center">
+          {/* RIGHT IMAGE SECTION */}
+          <div className="flex-1 flex justify-center items-center">
             <img
               src={Myheropic}
               alt="Delicious Food"
-              className="w-full max-w-[200px] sm:max-w-[300px] md:max-w-[670px] lg:max-w-[560px] xl:max-w-[690px] h-auto object-contain"
+              className="
+                w-full max-w-[260px] sm:max-w-[350px] md:max-w-[450px]
+                lg:max-w-[550px] xl:max-w-[650px]
+                h-auto object-contain
+              "
             />
           </div>
+
         </div>
-        {/* Category Section */}
-        <div className="text-center mt-8 sm:mt-12 md:mt-16 lg:mt-24 xl:mt-20">
-          <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+
+        {/* CATEGORY SECTION */}
+        <div className="text-center mt-12 md:mt-16 lg:mt-20">
+          <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
             OUR MAIN CATEGORY
           </h1>
         </div>
+
       </article>
     </>
   );

@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import Cart from "./Pages/CardPage";
 import About from "./Pages/About";
 import React, { useState } from "react";
+import Contact2 from "./Pages/Contact2";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,7 +61,7 @@ function App() {
                   <Home />
                   <FetchApi searchTerm={searchTerm} />
                   <About />
-                  <Contact />
+                  <Contact2/>
                 </>
               }
             />
