@@ -7,35 +7,37 @@ import TextRevealButton from "../Animation/TextRevealButton";
 import { FaHeart } from "react-icons/fa6";
 import { useFavorites } from "./FavoritesContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import Login from "./Login";
 import SignUp from "./SignUp";
 import { useCart } from "./CartContext";
+import { useAuth } from "./AuthContext";
+import UserProfile from "./UserSignin";
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { favorites } = useFavorites(); // Get favorites from context
-  const navigate = useNavigate(); // For navigation
+  const { favorites } = useFavorites();
+  const navigate = useNavigate();
   const location = useLocation();
-  const [authModal, setAuthModal] = useState(null);
+  const [showSignup, setShowSignup] = useState(false); // Keep signup separate
+  const { user, logout, openLogin } = useAuth(); // Use auth context
 
-  const { getTotalItems } = useCart(); // Add this
-  const totalCartItems = getTotalItems(); // Add this
+  const { getTotalItems } = useCart();
+  const totalCartItems = getTotalItems();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const goToFavorites = () => {
-    navigate("/favorites"); // Navigate to favorites page
+    navigate("/favorites");
   };
 
   const goToHome = () => {
-    navigate("/"); // Add this function
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top when navigating
+    navigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goToShop = () => {
     if (location.pathname !== "/") {
-      // If not on home page, navigate first
       navigate("/");
       setTimeout(() => {
         document.getElementById("shop-section")?.scrollIntoView({
@@ -43,16 +45,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         });
       }, 100);
     } else {
-      // If already on home page, just scroll
       document.getElementById("shop-section")?.scrollIntoView({
         behavior: "smooth",
       });
     }
   };
-     //go to about
-      const goToAbout = () => {
+
+  const goToAbout = () => {
     if (location.pathname !== "/") {
-      // If not on home page, navigate first
       navigate("/");
       setTimeout(() => {
         document.getElementById("about-section")?.scrollIntoView({
@@ -60,17 +60,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         });
       }, 100);
     } else {
-      // If already on home page, just scroll
       document.getElementById("about-section")?.scrollIntoView({
         behavior: "smooth",
       });
     }
   };
 
-
   const goToContact = () => {
     if (location.pathname !== "/") {
-      // If not on home page, navigate first
       navigate("/");
       setTimeout(() => {
         document.getElementById("contact-section")?.scrollIntoView({
@@ -78,7 +75,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         });
       }, 100);
     } else {
-      // If already on home page, just scroll
       document.getElementById("contact-section")?.scrollIntoView({
         behavior: "smooth",
       });
@@ -114,7 +110,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             >
               Shop
             </button>
-            <li onClick={goToAbout} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
+            <li
+              onClick={goToAbout}
+              className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold"
+            >
               About
             </li>
             <button
@@ -125,6 +124,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             </button>
           </ul>
         </div>
+
         {/* Search */}
         <div className="flex items-center justify-center p-4">
           <div className="w-[300px]">
@@ -141,9 +141,9 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           </div>
         </div>
 
-        {/* Login */}
-
+        {/* Icons and Auth */}
         <div className="flex gap-8 text-xl items-center">
+          {/* Favorites */}
           <div
             onClick={goToFavorites}
             className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative"
@@ -155,37 +155,40 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               </span>
             )}
           </div>
-          {/* shop icon */}
+
+          {/* Cart */}
           <div
-            onClick={() => navigate("/cart")} // Add navigation to cart page
-            className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white"
+            onClick={() => navigate("/cart")}
+            className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative"
           >
             <TiShoppingCart />
             {totalCartItems > 0 && (
-              <span className="absolute top-1 right-49  bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                 {totalCartItems}
               </span>
             )}
           </div>
 
-          <button
-            onClick={() => setAuthModal("login")}
-            className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold cursor-pointer"
-          >
-            SignIn
-          </button>
-          {/* Render modals based on authModal state */}
-          {authModal === "login" && (
-            <Login
-              onClose={() => setAuthModal(null)}
-              onSwitchToSignup={() => setAuthModal("signup")}
-            />
+          {/* Sign In / User Profile - REPLACED */}
+          {user ? (
+            <UserProfile user={user} onLogout={logout} />
+          ) : (
+            <button
+              onClick={openLogin}
+              className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold cursor-pointer"
+            >
+              Sign In
+            </button>
           )}
 
-          {authModal === "signup" && (
+          {/* Signup Modal */}
+          {showSignup && (
             <SignUp
-              onClose={() => setAuthModal(null)}
-              onSwitchToLogin={() => setAuthModal("login")}
+              onClose={() => setShowSignup(false)}
+              onSwitchToLogin={() => {
+                setShowSignup(false);
+                openLogin();
+              }}
             />
           )}
         </div>
@@ -208,11 +211,11 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             {/* Shopping Cart */}
             <div
               onClick={() => navigate("/cart")}
-              className="bg-yellow-500 rounded-full p-2 hover:bg-yellow-600 cursor-pointer text-white"
+              className="bg-yellow-500 rounded-full p-2 hover:bg-yellow-600 cursor-pointer text-white relative"
             >
               <TiShoppingCart size={20} />
               {totalCartItems > 0 && (
-                <span className="absolute top-1 right-15  bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                   {totalCartItems}
                 </span>
               )}
@@ -262,7 +265,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               >
                 Shop
               </button>
-              <li className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
+              <li
+                onClick={goToAbout}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg"
+              >
                 About
               </li>
               <button
@@ -284,25 +290,28 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               </li>
             </ul>
 
-            {/* Sign In Button */}
-            <button
-              onClick={() => setAuthModal("login")}
-              className="w-full py-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold"
-            >
-              SignIn
-            </button>
-
-            {authModal === "login" && (
-              <Login
-                onClose={() => setAuthModal(null)}
-                onSwitchToSignup={() => setAuthModal("signup")}
-              />
+            {/* Sign In Button / User Profile - REPLACED */}
+            {user ? (
+              <div className="pt-2">
+                <UserProfile user={user} onLogout={logout} />
+              </div>
+            ) : (
+              <button
+                onClick={openLogin}
+                className="w-full py-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold"
+              >
+                Sign In
+              </button>
             )}
 
-            {authModal === "signup" && (
+            {/* Signup Modal */}
+            {showSignup && (
               <SignUp
-                onClose={() => setAuthModal(null)}
-                onSwitchToLogin={() => setAuthModal("login")}
+                onClose={() => setShowSignup(false)}
+                onSwitchToLogin={() => {
+                  setShowSignup(false);
+                  openLogin();
+                }}
               />
             )}
           </div>
