@@ -104,7 +104,7 @@ const FetchApi = ({ searchTerm }) => {
               } Items`}
         </h1>
 
-        {/* ADD THIS: Show search results count */}
+        {/*  Show search results count */}
         {searchTerm && (
           <p className="text-center text-gray-600 mb-4">
             Found {filteredData?.length || 0} results for "{searchTerm}"
@@ -112,7 +112,7 @@ const FetchApi = ({ searchTerm }) => {
         )}
       </div>
 
-      <div className="card flex flex-wrap justify-center mx-auto w-[90%] gap-5 mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 w-[90%] mx-auto mt-2">
         {filteredData && filteredData.length > 0 ? (
           filteredData.slice(0, itemsToShow).map((p) => {
             return (
@@ -127,7 +127,7 @@ const FetchApi = ({ searchTerm }) => {
             );
           })
         ) : (
-          // ADD THIS: Show message when no results found
+          //  Show message when no results found
           <div className="text-center w-full py-10">
             <p className="text-2xl text-gray-500">
               No products found {searchTerm && `for "${searchTerm}"`}

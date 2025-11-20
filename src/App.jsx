@@ -48,10 +48,8 @@ function App() {
                 },
               }}
             />
-
             {/* Navbar */}
             <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
             {/* Routes */}
             <Routes>
               <Route

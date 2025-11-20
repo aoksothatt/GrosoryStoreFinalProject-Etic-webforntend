@@ -58,7 +58,7 @@ const Card = ({ img, name, price, category, id }) => {
 
   return (
     <div
-      className="w-80 bg-white shadow-xl rounded-xl transition-all duration-300"
+      className="w-full bg-white shadow-xl rounded-xl transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
