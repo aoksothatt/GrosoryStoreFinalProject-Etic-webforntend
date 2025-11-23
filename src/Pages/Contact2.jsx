@@ -7,7 +7,7 @@ const Contact2 = () => {
       className="pt-4 w-full h-auto flex flex-col md:flex-row justify-center gap-6 px-4"
     >
       {/* Contact Form */}
-      <div className="w-full md:w-[500px] border-2 border-gray-400 rounded-2xl p-4">
+      <div className="w-full md:w-[500px] border-2 border-gray-300 rounded-2xl p-4">
         <h3 className="font-extrabold text-[20px]">Get in Touch</h3>
         <p className="text-neutral-500 text-[13px] mb-3">
           We'd love to hear you. Fill out the forms, and we'll get back to you
@@ -53,7 +53,7 @@ const Contact2 = () => {
       </div>
 
       {/* Location Section */}
-      <div className="w-full md:w-[500px] border-2 border-gray-400 rounded-2xl p-4 space-y-4">
+      <div className="w-full md:w-[500px] border-2 border-gray-300 rounded-2xl p-4 space-y-4">
         <h3 className="font-extrabold text-[20px]">Our Location</h3>
         <p className="text-neutral-500 text-[13px]">
           Visit our store or contact us directly.

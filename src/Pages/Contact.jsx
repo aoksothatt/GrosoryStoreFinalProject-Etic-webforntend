@@ -8,53 +8,7 @@ const Contact = () => {
       className="w-full max-w-[1200px] mx-auto px-4"
       
     >
-      {/* ===== TOP CONTACT BOX ===== */}
-      <div className="
-        w-full 
-        bg-gradient-to-r from-blue-300 to-green-300 
-        mt-6 rounded-2xl 
-        flex flex-col items-center text-center 
-        py-10
-      ">
-        <h4 className="font-black bg-gradient-to-r from-yellow-800 to-black bg-clip-text text-transparent text-3xl sm:text-4xl mb-4">
-          CONTACT US
-        </h4>
-
-        <p className="text-emerald-700 font-bold text-base sm:text-lg md:text-xl max-w-[700px] mb-6">
-          Contact us to easily order any food or juice and get some special promotions.
-          We’ll get back to you quickly.
-        </p>
-
-        {/* Email Input + Subscribe Btn */}
-       <div className="w-full flex flex-col sm:flex-row items-center sm:items-stretch gap-3 sm:gap-0 max-w-[500px]">
-  <input
-    type="email"
-    placeholder="Freshfood3455@gmail.com"
-    className="
-      w-full 
-      placeholder-gray-400 
-      h-[48px] px-4 
-      rounded-lg sm:rounded-l-lg sm:rounded-r-none
-      bg-white border border-gray-300
-      focus:outline-none focus:ring-2 focus:ring-green-500
-    "
-  />
-
-  <button
-    className="
-      w-full sm:w-auto 
-      h-[48px]
-      bg-gradient-to-r from-green-600 to-blue-400
-      text-white font-semibold px-6 
-      rounded-lg sm:rounded-r-lg sm:rounded-l-none
-      hover:opacity-90
-    "
-  >
-    Subscribe
-  </button>
-</div>
-
-      </div>
+    
 
       {/* ===== BOTTOM FOOTER SECTION ===== */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16">
@@ -110,7 +64,7 @@ const Contact = () => {
         <div>
           <h3 className="font-bold text-lg">Address</h3>
           <ul className="mt-3 text-sm text-gray-700">
-            <li className="pt-2">371 Steung Mean Chey</li>
+            <li className="pt-2">Phnom Penh,YKPB(271),St 160</li>
             <li className="pt-2">897-234-3445</li>
             <li className="pt-2">Freshfood3455@gmail.com</li>
           </ul>

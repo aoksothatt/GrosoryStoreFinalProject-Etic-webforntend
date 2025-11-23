@@ -6,8 +6,8 @@ const About = () => {
         <div className="w-full  bg-white mt-10" id='about-section'>
 
             {/* ========== HERO SECTION ========== */}
-            <section className="w-full sm:w-[95%] lg:w-[90%] mx-auto px-4 rounded-2xl bg-gradient-to-r from-green-400 to-blue-300 py-20 text-center">
-                <h1 className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-lg">
+            <section className="w-full sm:w-[95%] lg:w-[90%] mx-auto px-4 rounded-2xl bg-gradient-to-b from-green-400 to-blue-300 py-20 text-center">
+                <h1 className="text-4xl sm:text-5xl font-extrabold  text-white   drop-shadow-lg">
                     About Us
                 </h1>
                 <p className="mt-4 text-white max-w-[650px] mx-auto text-lg sm:text-xl">
@@ -15,44 +15,7 @@ const About = () => {
                 </p>
             </section>
 
-            {/* ========== WHO WE ARE SECTION ========== */}
-            <section className="container sm:w-[95%] lg:w-[90%] mx-auto px-4 mx-auto px-4 py-16 flex flex-col lg:flex-row items-center gap-10">
-
-                {/* Image */}
-                <div className="w-full lg:w-1/2">
-                    <img
-                        src="https://static.vecteezy.com/system/resources/previews/035/949/943/large_2x/man-putting-her-forefinger-to-her-lips-for-quiet-silence-making-silence-gesture-shhh-pop-art-comics-style-illustration-yellow-background-free-vector.jpg"
-                        className="rounded-2xl  shadow-lg"
-                        alt="about"
-                    />
-                </div>
-
-                {/* Text */}
-                <div className="w-full  lg:w-1/2">
-                    <h2 className="text-3xl font-bold mb-4 text-green-700">Who We Are</h2>
-                    <p className="text-gray-700 leading-relaxed mb-4">
-                        We are a fresh grocery delivery service bringing high-quality food straight
-                        to your door. Our mission is to provide affordable, organic, and locally grown
-                        products that support healthy living.
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                        We work directly with farmers and trusted distributors to make sure every order
-                        is fresh, safe, and delivered with care.
-                    </p>
-                </div>
-            </section>
-
-            {/* ========== OUR MISSION SECTION ========== */}
-            <section className="w-full sm:w-[95%] lg:w-[90%] mx-auto px-4 bg-gray-100 py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl font-bold text-green-700">Our Mission</h2>
-                    <p className="text-gray-700 max-w-[700px] mx-auto mt-4">
-                        Our mission is to make healthy food accessible to everyone by offering fast delivery,
-                        lower prices, and high-quality groceries that support families and communities.
-                    </p>
-                </div>
-            </section>
-
+          
             {/* ========== WHY CHOOSE US SECTION ========== */}
             <section className="container sm:w-[95%] lg:w-[90%] mx-auto px-4 mx-auto px-4 py-16">
                 <h2 className="text-3xl font-bold text-center text-green-700 mb-10">
