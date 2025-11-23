@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-
+import toast from "react-hot-toast";
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
-  // Added onSignup prop
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -11,8 +12,8 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState({ text: "", type: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -20,10 +21,8 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
       ...prev,
       [id]: type === "checkbox" ? checked : value,
     }));
-    if (message.text) setMessage({ text: "", type: "" });
   };
 
-  // FIXED: Changed fullName to fullname to match state
   const validateForm = () => {
     if (!formData.fullname.trim()) {
       return "Please enter your full name";
@@ -43,17 +42,20 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
     return null;
   };
 
-  // ADDED: Missing handleSubmit function
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const error = validateForm();
     if (error) {
-      setMessage({ text: error, type: "error" });
+      toast.error(error, {
+        duration: 4000,
+        icon: "❌",
+      });
       return;
     }
 
     setIsSubmitting(true);
+    const loadingToast = toast.loading("Creating your account...");
 
     setTimeout(() => {
       const userData = {
@@ -65,10 +67,19 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
 
       console.log("✅ New user registered:", userData);
 
-      setMessage({
-        text: "🎉 Account created successfully!",
-        type: "success",
-      });
+      toast.dismiss(loadingToast);
+      toast.success(
+        `Welcome, ${formData.fullname}! 🎉 Account created successfully!`,
+        {
+          duration: 4000,
+          style: {
+            borderRadius: "10px",
+            background: "#10B981",
+            color: "#fff",
+          },
+        }
+      );
+
       setIsSubmitting(false);
 
       if (onSignup) {
@@ -76,16 +87,18 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
           email: formData.email,
           name: formData.fullname,
         });
-      } else {
-        setTimeout(() => {
-          onClose();
-        }, 2000);
       }
+
+      setTimeout(() => {
+        onClose();
+      }, 1500);
     }, 1500);
   };
 
   const handleSocialLogin = (provider) => {
     setIsSubmitting(true);
+    const loadingToast = toast.loading(`Connecting to ${provider}...`);
+
     setTimeout(() => {
       const userData = {
         id: Date.now(),
@@ -96,10 +109,16 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
 
       console.log("✅ New user registered via", provider, ":", userData);
 
-      setMessage({
-        text: `🎉 Signed up with ${provider} successfully!`,
-        type: "success",
+      toast.dismiss(loadingToast);
+      toast.success(`Signed up with ${provider} successfully! 🎉`, {
+        duration: 4000,
+        style: {
+          borderRadius: "10px",
+          background: "#10B981",
+          color: "#fff",
+        },
       });
+
       setIsSubmitting(false);
 
       if (onSignup) {
@@ -107,16 +126,16 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
           email: userData.email,
           name: userData.name,
         });
-      } else {
-        setTimeout(() => {
-          onClose();
-        }, 2000);
       }
-    }, 1000);
+
+      setTimeout(() => {
+        onClose();
+      }, 1500);
+    }, 1500);
   };
 
   return (
-    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
@@ -144,11 +163,10 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
             </p>
             <div className="flex items-center justify-center space-x-4 mt-3">
               <button
-                onClick={() => handleSocialLogin("facebook")}
+                onClick={() => handleSocialLogin("Facebook")}
                 disabled={isSubmitting}
                 className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50"
               >
-                {/* Facebook SVG */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6 mr-3"
@@ -160,11 +178,10 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                 Facebook
               </button>
               <button
-                onClick={() => handleSocialLogin("google")}
+                onClick={() => handleSocialLogin("Google")}
                 disabled={isSubmitting}
                 className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50"
               >
-                {/* Google SVG */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6 mr-3"
@@ -197,22 +214,8 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
               Or sign up with credentials
             </p>
 
-            {message.text && (
-              <div
-                className={`mt-4 p-3 rounded-md text-center text-sm ${
-                  message.type === "error"
-                    ? "bg-red-100 text-red-700"
-                    : message.type === "success"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-blue-100 text-blue-700"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
-
-            <div className="mt-6">
-              {/* Full Name Input - FIXED ID */}
+            <form className="mt-6" onSubmit={handleSubmit}>
+              {/* Full Name Input */}
               <div className="relative">
                 <input
                   className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
@@ -263,10 +266,10 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                 </div>
               </div>
 
-              {/* Password Input  */}
+              {/* Password Input */}
               <div className="relative mt-3">
                 <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 pr-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
@@ -283,20 +286,20 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                   >
                     <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                   </svg>
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-[-350px] inset-y-0 flex items-center text-gray-400 hover:text-gray-600"
-                  >
-                    {showPassword ? "👁️" : "👁️‍🗨️"}
-                  </button>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 inset-y-0 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
               </div>
 
-              {/* Confirm Password Input  */}
+              {/* Confirm Password Input */}
               <div className="relative mt-3">
                 <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 pr-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   id="confirmPassword"
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
@@ -313,6 +316,13 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                   >
                     <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                   </svg>
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-[-365px] inset-y-0 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                  </button>
                 </div>
               </div>
 
@@ -342,7 +352,7 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                 </div>
               )}
 
-              {/* Terms and Conditions - FIXED checkbox ID */}
+              {/* Terms and Conditions */}
               <div className="mt-4 flex items-center text-gray-500">
                 <input
                   type="checkbox"
@@ -352,13 +362,13 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
                   className="mr-3"
                   disabled={isSubmitting}
                 />
-                <div className="flex gap-20">
-                  <label htmlFor="agreeToTerms" className="text-[10px]">
+                <div className="flex justify-between w-full">
+                  <label htmlFor="agreeToTerms" className="text-xs sm:text-sm">
                     I agree to the Terms and Conditions
                   </label>
                   <button
                     type="button"
-                    className="text-blue-500 hover:text-blue-600 font-semibold underline cursor-pointer"
+                    className="text-blue-500 hover:text-blue-600 font-semibold underline cursor-pointer text-sm"
                     onClick={onSwitchToLogin}
                     disabled={isSubmitting}
                   >
@@ -370,18 +380,32 @@ const Signup = ({ onClose, onSwitchToLogin, onSignup }) => {
               {/* Sign Up Button */}
               <div className="flex items-center justify-center mt-8">
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
                   disabled={isSubmitting}
-                  className={`text-white py-2 px-4 uppercase rounded shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-indigo-500 hover:bg-indigo-600"
-                  }`}
+                  className="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
+                  {isSubmitting && (
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                  )}
                   {isSubmitting ? "Creating Account..." : "Sign up"}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import { useState } from "react";
-import UserProfile from "./UserSignin";
 import { useAuth } from "../components/AuthContext";
+import toast from "react-hot-toast";
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+
 const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,12 +11,15 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const auth = useAuth();
-  const login = auth?.login; // Use optional chaining
+  const login = auth?.login;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    // Show loading toast
+    const loadingToast = toast.loading("Signing in...");
 
     setTimeout(() => {
       if (email && password) {
@@ -22,47 +28,74 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
           name: email.split("@")[0],
         };
 
-        // Try to use auth login, fallback to onLogin prop
         if (login) {
           login(userData);
         } else if (onLogin) {
           onLogin(userData);
         }
 
+        // Dismiss loading and show success toast
+        toast.dismiss(loadingToast);
+        toast.success(`Welcome back, ${userData.name}! 👋`, {
+          duration: 4000,
+          style: {
+            borderRadius: "10px",
+            background: "#10B981",
+            color: "#fff",
+          },
+        });
+
         if (onClose) onClose();
       } else {
-        setError("Please Enter both Email and Password");
+        // Dismiss loading and show error toast
+        toast.dismiss(loadingToast);
+        toast.error("Please enter both email and password", {
+          duration: 4000,
+          icon: "❌",
+        });
+        setError("Please enter both email and password");
       }
       setLoading(false);
-    }, 1000);
+    }, 1500);
   };
 
   const handleSocialLogin = (provider) => {
     setLoading(true);
+
+    // Show loading toast
+    const loadingToast = toast.loading(`Connecting to ${provider}...`);
+
     setTimeout(() => {
       const userData = {
         email: `user@${provider}.com`,
         name: `${provider} User`,
       };
 
-      // Try to use auth login, fallback to onLogin prop
       if (login) {
         login(userData);
       } else if (onLogin) {
         onLogin(userData);
       }
 
+      // Dismiss loading and show success toast
+      toast.dismiss(loadingToast);
+      toast.success(`Signed in with ${provider}! 🎉`, {
+        duration: 4000,
+        style: {
+          borderRadius: "10px",
+          background: "#10B981",
+          color: "#fff",
+        },
+      });
+
       if (onClose) onClose();
       setLoading(false);
-    }, 1000);
+    }, 1500);
   };
 
   return (
-    // Modal overlay - covers entire screen
-    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50   ">
-      {/* Modal content wrapper */}
+    <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 hover:bg-gray-100 shadow-lg transition-all cursor-pointer"
@@ -82,8 +115,7 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
           </svg>
         </button>
 
-        {/* Original login form content */}
-        <div className="p-8 mx-auto  ">
+        <div className="p-8 mx-auto">
           <div className="bg-white rounded-t-lg p-8">
             <p className="text-center text-sm text-gray-400 font-light">
               Sign in with
@@ -91,9 +123,9 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
             <div>
               <div className="flex items-center justify-center space-x-4 mt-3">
                 <button
-                  onClick={() => handleSocialLogin("facebook")}
+                  onClick={() => handleSocialLogin("Facebook")}
                   disabled={loading}
-                  className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -106,9 +138,9 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
                   Facebook
                 </button>
                 <button
-                  onClick={() => handleSocialLogin("google")}
+                  onClick={() => handleSocialLogin("Google")}
                   disabled={loading}
-                  className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +208,7 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 pr-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600 transition rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
@@ -190,14 +222,14 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
                   >
                     <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                   </svg>
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-[-350px] inset-y-0 flex items-center text-gray-400 hover:text-gray-600"
-                  >
-                    {showPassword ? "👁️" : "👁️‍🗨️"}
-                  </button>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 inset-y-0 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
               </div>
               <div className="mt-4 flex items-center text-gray-500">
                 <input
@@ -206,7 +238,7 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
                   name="remember"
                   className="mr-3"
                 />
-                <div className="flex gap-40">
+                <div className="flex justify-between w-full">
                   <label htmlFor="remember">Remember me</label>
                   <button
                     type="button"
@@ -221,8 +253,26 @@ const Login = ({ onClose, onSwitchToSignup, onLogin }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
+                  {loading && (
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                  )}
                   {loading ? "Signing in..." : "Sign in"}
                 </button>
               </div>
