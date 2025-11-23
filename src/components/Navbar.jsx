@@ -34,10 +34,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.getElementById("shop-section")?.scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById("shop-section")
+          ?.scrollIntoView({ behavior: "smooth" });
       }, 150);
     } else {
-      document.getElementById("shop-section")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("shop-section")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -45,10 +49,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById("about-section")
+          ?.scrollIntoView({ behavior: "smooth" });
       }, 150);
     } else {
-      document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("about-section")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -56,10 +64,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById("contact-section")
+          ?.scrollIntoView({ behavior: "smooth" });
       }, 150);
     } else {
-      document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("contact-section")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -72,7 +84,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
       {/* DESKTOP NAVBAR */}
       <div className="hidden lg:flex justify-between items-center h-[8vh] px-6 border-b border-gray-200">
         {/* Logo */}
-        <div onClick={goToHome} className="cursor-pointer flex items-center gap-2">
+        <div
+          onClick={goToHome}
+          className="cursor-pointer flex items-center gap-2"
+        >
           <FcShop className="text-4xl" />
           <h1 className="text-2xl font-bold">
             <TextRevealButton text="Khmer Fresh" />
@@ -81,16 +96,28 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
         {/* Page Links */}
         <ul className="flex gap-6 p-4">
-          <button onClick={goToHome} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold">
+          <button
+            onClick={goToHome}
+            className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
+          >
             Home
           </button>
-          <button onClick={goToShop} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold">
+          <button
+            onClick={goToShop}
+            className="hover:border-b-2 hover:border-green-500 hover:text-green-500 cursor-pointer duration-200 font-bold"
+          >
             Shop
           </button>
-          <li onClick={goToAbout} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
+          <li
+            onClick={goToAbout}
+            className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold"
+          >
             About
           </li>
-          <button onClick={goToContact} className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold">
+          <button
+            onClick={goToContact}
+            className="hover:border-b-2 hover:border-green-500 hover:text-green-500 duration-200 cursor-pointer font-bold"
+          >
             Contact
           </button>
         </ul>
@@ -110,7 +137,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
         {/* Icons and Auth */}
         <div className="flex gap-8 text-xl items-center">
           {/* Favorites */}
-          <div onClick={goToFavorites} className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative">
+          <div
+            onClick={goToFavorites}
+            className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative"
+          >
             <FaHeart className="text-xl" />
             {favorites.length > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
@@ -120,7 +150,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           </div>
 
           {/* Cart */}
-          <div onClick={() => navigate("/cart")} className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative">
+          <div
+            onClick={() => navigate("/cart")}
+            className="bg-yellow-500 rounded-full p-3 hover:bg-yellow-600 cursor-pointer text-white relative"
+          >
             <TiShoppingCart className="text-xl" />
             {totalCartItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
@@ -133,7 +166,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           {user ? (
             <UserProfile user={user} onLogout={logout} />
           ) : (
-            <button onClick={openLogin} className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold cursor-pointer">
+            <button
+              onClick={openLogin}
+              className="p-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold cursor-pointer"
+            >
               Sign In
             </button>
           )}
@@ -166,7 +202,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           {/* Right icons */}
           <div className="flex items-center gap-4">
             {/* Cart */}
-            <div onClick={() => navigate("/cart")} className="bg-yellow-500 rounded-full p-2 hover:bg-yellow-600 cursor-pointer text-white relative">
+            <div
+              onClick={() => navigate("/cart")}
+              className="bg-yellow-500 rounded-full p-2 hover:bg-yellow-600 cursor-pointer text-white relative"
+            >
               <TiShoppingCart size={20} />
               {totalCartItems > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
@@ -176,12 +215,18 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             </div>
 
             {/* Menu */}
-            <button onClick={toggleMenu}>{isMenuOpen ? <X size={28} /> : <Menu size={28} />}</button>
+            <button onClick={toggleMenu}>
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
         </div>
 
         {/* Mobile Dropdown */}
-        <div className={`${isMenuOpen ? "max-h-screen" : "max-h-0"} overflow-hidden transition-all duration-300 bg-white`}>
+        <div
+          className={`${
+            isMenuOpen ? "max-h-screen" : "max-h-0"
+          } overflow-hidden transition-all duration-300 bg-white`}
+        >
           {/* Search */}
           <div className="px-4 py-4">
             <div className="relative mb-4">
@@ -197,19 +242,35 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
             {/* Nav Buttons */}
             <ul className="space-y-3 text-lg font-bold">
-              <button onClick={goToHome} className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
+              <button
+                onClick={goToHome}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg"
+              >
                 Home
               </button>
-              <button onClick={goToShop} className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
+              <br />
+              <button
+                onClick={goToShop}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg"
+              >
                 Shop
               </button>
-              <li onClick={goToAbout} className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
+              <li
+                onClick={goToAbout}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg"
+              >
                 About
               </li>
-              <button onClick={goToContact} className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg">
+              <button
+                onClick={goToContact}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg"
+              >
                 Contact
               </button>
-              <li onClick={goToFavorites} className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg flex justify-between items-center">
+              <li
+                onClick={goToFavorites}
+                className="py-2 px-4 hover:bg-green-50 hover:text-green-500 cursor-pointer duration-200 font-bold rounded-lg flex justify-between items-center"
+              >
                 Favorites
                 {favorites.length > 0 && (
                   <span className="bg-red-600 text-white rounded-full px-2 py-1 text-xs">
@@ -225,7 +286,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
                 <UserProfile user={user} onLogout={logout} />
               </div>
             ) : (
-              <button onClick={openLogin} className="w-full py-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold">
+              <button
+                onClick={openLogin}
+                className="w-full py-2 px-4 rounded-lg bg-red-400 hover:bg-red-500 text-white font-bold"
+              >
                 Sign In
               </button>
             )}
